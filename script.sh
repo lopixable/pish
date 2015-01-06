@@ -20,13 +20,13 @@ function LaunchPing {
 	done
 }
 
-function ShowResult {
+function getResult {
 	for NAME in $(cat list.txt | cut -d: -f1)
 	do
 		IP=$(GetIPByName $NAME)
 		IP="($IP)"
 		MS=$(GetMSByName $NAME)
-		printf "%-12s %-18s %8s ms\n" "$NAME" "$IP" "$MS"
+		printf "%-12s %-18s %8s\n" "$NAME" "$IP" "$MS"
 	done
 }
 
@@ -39,6 +39,9 @@ echo
 LaunchPing
 echo "Pings in progress..."
 sleep 7
-ShowResult
+echo 
+printf "%-12s %-18s %8s\n" "name" "ip" "ms"
+printf "%s" "$(getResult | sort -n -k3)"
+echo
 
 rm -rf /tmp/ping-*.out
