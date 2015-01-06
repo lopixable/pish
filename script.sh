@@ -24,22 +24,21 @@ function ShowResult {
 	for NAME in $(cat list.txt | cut -d: -f1)
 	do
 		IP=$(GetIPByName $NAME)
+		IP="($IP)"
 		MS=$(GetMSByName $NAME)
-		echo $NAME"(" $IP "):" $MS " ms"
+		printf "%-12s %-18s %8s ms\n" "$NAME" "$IP" "$MS"
 	done
 }
 
+echo "      _      _   "
+echo " ___ <_> ___| |_ "
+echo "| . \| |<_-<| . |"
+echo "|  _/|_|/__/|_|_|"
+echo "|_|          v1.0"
+echo 
 LaunchPing
 echo "Pings in progress..."
 sleep 7
 ShowResult
-
-#for NAME in $(cat list.txt | cut -d: -f1) 
-#do
-#	IP=$(egrep ^$NAME.* list.txt | cut -d: -f2)
-#	ping -qc 3 $IP > /tmp/ping.out &
-#	MS=$(cat /tmp/ping.out | egrep .*min/avg/max.* | cut -d"/" -f5)
-#	echo $NAME "(" $IP ") : " $MS " ms"
-#done
 
 rm -rf /tmp/ping-*.out
