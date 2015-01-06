@@ -45,7 +45,6 @@ function getResult {
     for NAME in $(cat $FILE | cut -d: -f1)
         do
             IP=$(GetIPByName $NAME)
-                IP="($IP)"
                 MS=$(GetMSByName $NAME)
                 printf "%-12s %-18s %8s\n" "$NAME" "$IP" "$MS"
                 done
