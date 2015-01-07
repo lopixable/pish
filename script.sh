@@ -1,5 +1,8 @@
 #!/bin/bash
 
+NBPING=6
+SLEEP=8    # needs to be more than NBPING
+
 echo "      _      _   "
 echo " ___ <_> ___| |_ "
 echo "| . \| |<_-<| . |"
@@ -37,7 +40,7 @@ function LaunchPing {
     for IP in $(cat $FILE | cut -d: -f2)
         do
             NAME=$(GetNameByIP $IP)
-                ping -qc 3 -W5 $IP > /tmp/ping-$NAME.out &
+                ping -qc $NBPING -W5 $IP > /tmp/ping-$NAME.out &
                 done
 }
 
@@ -52,7 +55,7 @@ function getResult {
 
 LaunchPing
 echo "Pings in progress..."
-sleep 7
+sleep $SLEEP
 echo 
 printf "%-12s %-18s %8s\n" "name" "ip" "ms"
 printf "%s" "$(getResult | sort -n -k3)"
